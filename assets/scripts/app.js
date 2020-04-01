@@ -15,6 +15,37 @@ function createAndWriteOutput(operator, resultBeforeCalc, calcNumber) {
     outputResult(currentResult, calcDescription);
 }
 
+function calculateResult(calculateType) {
+    const enteredNumber = getUserNumberInput();
+    if (
+        calculateType != 'ADD' &&
+        calculateType != 'SUBTRACT' &&
+        calculateType != 'MULTIPLY' &&
+        calculateType != 'DEVIDE' ||
+        enteredNumber === 0
+    ) {
+        return;
+    }
+    const initialResult = currentResult;
+    let mathType;
+    if (calculateType === 'ADD') {
+        currentResult = currentResult + enteredNumber;
+        mathType = '+';
+    } else if (calculateType === 'SUBTRACT') {
+        currentResult = currentResult - enteredNumber;
+        mathType = '-';
+    } else if (calculateType === 'MULTIPLY') {
+        currentResult = currentResult * enteredNumber;
+        mathType = '*';
+    } else if (calculateType === 'DEVIDE') {
+        currentResult = currentResult / enteredNumber;
+        mathType = '/';
+    } 
+    
+    createAndWriteOutput(mathType, initialResult, enteredNumber);
+    writeToLog(calculateType, initialResult, enteredNumber, currentResult);
+}
+
 function writeToLog(
     operatorIdentifier,
     prevResult,
@@ -32,33 +63,17 @@ function writeToLog(
 }
 
 function add() {
-    const enteredNumber = getUserNumberInput();
-    const initialResult = currentResult;
-    currentResult = currentResult + enteredNumber;
-    createAndWriteOutput('+', initialResult, enteredNumber);
-    writeToLog('ADD', initialResult, enteredNumber, currentResult);
+    calculateResult('ADD');
 }
 
 function subtract() {
-    const enteredNumber = getUserNumberInput();
-    const initialResult = currentResult;
-    currentResult = currentResult - enteredNumber;
-    createAndWriteOutput('-', initialResult, enteredNumber);
-    writeToLog('SUBTRACT', initialResult, enteredNumber, currentResult);
+    calculateResult('SUBTRACT');
 }
 
 function multiply() {
-    const enteredNumber = getUserNumberInput();
-    const initialResult = currentResult;
-    currentResult = currentResult * enteredNumber;
-    createAndWriteOutput('*', initialResult, enteredNumber);
-    writeToLog('MULTIPLY', initialResult, enteredNumber, currentResult);
+    calculateResult('MULTIPLY');
 }
 
 function devide() {
-    const enteredNumber = getUserNumberInput();
-    const initialResult = currentResult;
-    currentResult = currentResult / enteredNumber;
-    createAndWriteOutput('/', initialResult, enteredNumber);
-    writeToLog('DEVIDE', initialResult, enteredNumber, currentResult);
+    calculateResult('DEVIDE');
 }
